@@ -1,0 +1,19 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+typings
+
+# Optional npm cache directory
+.npm
+
+# Source files
+src/psd
+src/jpg
+
+# IDE
+
+.vscode/

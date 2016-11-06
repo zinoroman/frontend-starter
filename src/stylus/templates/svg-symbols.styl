@@ -1,0 +1,5 @@
+<% _.forEach( icons, function( icon ){ %><%= icon.className %>
+  width <%= parseInt(icon.width)/16 + 'em' %>
+  height <%= parseInt(icon.height)/16 + 'em' %>
+<%= icon.style %>
+<% }); %>
