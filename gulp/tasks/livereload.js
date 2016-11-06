@@ -4,7 +4,11 @@ import paths from '../paths';
 
 gulp.task('browser-sync', () => {
 	return browserSync({
-		files: ['./app/dist/css/**/*.css', './app/dist/js/**/*.js', './app/*.html'],
+		files: [
+			`${paths.dist.css}/**/*.css`,
+			`${paths.dist.js}/**/*.js`,
+			`${paths.app}/*.html`
+		],
 		server: paths.app
 	});
 });
