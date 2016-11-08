@@ -1,5 +1,4 @@
 import gulp from 'gulp';
-import watch from 'gulp-watch';
 import twig from 'gulp-twig';
 import gutil from 'gulp-util';
 import notifier from 'node-notifier';

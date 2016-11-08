@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 import gulpif from 'gulp-if';
-import watch from 'gulp-watch';
 import svgSymbols from 'gulp-svg-symbols';
 import gutil from 'gulp-util';
 import gaze from 'gaze';
