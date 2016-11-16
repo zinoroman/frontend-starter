@@ -13,6 +13,7 @@ typings
 # Source files
 src/psd/**/*.psd
 src/jpg/**/*.jpg
+src/ai/**/*.ai
 
 # IDE
 
