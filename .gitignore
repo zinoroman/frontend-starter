@@ -11,8 +11,8 @@ typings
 .npm
 
 # Source files
-src/psd
-src/jpg
+src/psd/**/*.psd
+src/jpg/**/*.jpg
 
 # IDE
 
