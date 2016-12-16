@@ -5,9 +5,7 @@ import paths from '../paths';
 gulp.task('browser-sync', () => {
 	return browserSync({
 		files: [
-			`${paths.dist.css}/**/*.css`,
-			`${paths.dist.js}/**/*.js`,
-			`${paths.app}/*.html`
+            `${paths.app}/css/**/*.css`
 		],
 		server: paths.app
 	});

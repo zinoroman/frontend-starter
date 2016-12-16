@@ -12,8 +12,8 @@ export default {
         iconsSVG: 'src/icons/svg'
     },
     dist: {
-        js: 'app/dist/js',
-        css: 'app/dist/css',
+        js: 'app/js',
+        css: 'app/css',
         images: 'app/images'
     }  
 }

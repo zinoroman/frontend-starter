@@ -29,13 +29,19 @@ gulp.task('twig:watch', () => {
 });
 
 gulp.task('twig:compile', () => {
+    const twigCompiler = twig({
+        base: `${__dirname}/../../src/twig`
+    });
+
     return gulp.src([`${paths.src.twig}/pages/*.twig`])
-        .pipe(twig().on('error', gutil.log))
-        .on('error', (error) => {
+        .pipe(twigCompiler)
+        .on('error', function (error) {
             notifier.notify({
                 title: 'Twig Error Happened 😞',
                 message: `Here is a problem: ${error.message}`
             });
+
+            this.emit('end');
         })
         .pipe(gulp.dest(paths.app))
 });

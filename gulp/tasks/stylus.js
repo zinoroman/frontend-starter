@@ -8,6 +8,7 @@ import bootstrap from 'bootstrap-styl';
 import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import postcss from 'gulp-postcss';
+import pxToRem from 'postcss-pxtorem';
 import autoprefixer from 'autoprefixer';
 import gutil from 'gulp-util';
 import notifier from 'node-notifier';
@@ -60,6 +61,65 @@ gulp.task('stylus:build', () => {
         .pipe(postcss([
             autoprefixer({
                 browsers: ['last 2 versions', 'ie 10', 'android 4']
+            }),
+            pxToRem({
+                propWhiteList: [
+                    'font', 
+                    'font-size', 
+                    'line-height', 
+                    'letter-spacing', 
+
+                    'border', 
+                    'border-left', 
+                    'border-right', 
+                    'border-bottom', 
+                    'border-top', 
+                    'border-width',
+
+                    'border-radius',
+                    'border-top-left-radius',
+                    'border-top-right-radius',
+                    'border-bottom-left-radius',
+                    'border-bottom-right-radius',
+
+                    'outline',
+
+                    'width',
+                    'height',
+
+                    'min-width',
+                    'min-height',
+
+                    'max-width',
+                    'max-height',
+
+                    'padding',
+                    'padding-top',
+                    'padding-bottom',
+                    'padding-left',
+                    'padding-right',
+
+                    'margin',
+                    'margin-top',
+                    'margin-bottom',
+                    'margin-left',
+                    'margin-right',
+
+                    'top',
+                    'bottom',
+                    'right',
+                    'left',
+
+                    'box-shadow',
+                    'text-shadow'
+                ],
+                selectorBlackList: [
+                    'html',
+                    'ul:not([class]) > li:before',
+                    '.list-default > li:before'
+                ],
+                minPixelValue: 2,
+                mediaQuery: true
             })
         ]))
         .pipe(save('before-uglify'))
