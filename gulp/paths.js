@@ -2,6 +2,7 @@ export default {
     app: 'app',
     vendor: 'node_modules',
     src: {
+        images: 'src/images',
         ts: 'src/ts',
         js: 'src/js',
         jade: 'src/jade',
