@@ -17,6 +17,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/Linnas/goodnight#readme",
   "devDependencies": {
+    "@wedes/bootstrap-styl": "zinoroman/bootstrap-stylus-wedes#develop",
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",
     "babel-preset-es2015": "^6.9.0",
@@ -47,7 +48,6 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "@wedes/bootstrap-styl": "zinoroman/bootstrap-stylus-wedes#develop",
     "blueimp-gallery": "^2.21.3",
     "bootstrap": "^3.3.7",
     "gulp-imagemin": "^3.1.1",
