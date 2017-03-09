@@ -138,7 +138,7 @@ gulp.task('stylus:build', ['stylus:stylint'], () => {
 });
 
 gulp.task('stylus:stylint', () => {
-    return gulp.src('src/stylus/**/*.styl')
+    return gulp.src(['src/stylus/**/*.styl', '!src/stylus/templates/**/*', '!src/stylus/libs/**/*'])
         .pipe(stylint({
             config: '.stylintrc'
         }))
