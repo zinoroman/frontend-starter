@@ -4,7 +4,7 @@ import concat from 'gulp-concat';
 import rupture from 'rupture';
 import cleanCSS from 'gulp-clean-css';
 import uglify from 'gulp-uglify';
-import bootstrap from 'bootstrap-styl';
+import wedesBootstrap from '@wedes/bootstrap-styl';
 import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import postcss from 'gulp-postcss';
@@ -41,7 +41,7 @@ gulp.task('stylus:watch', () => {
 
 gulp.task('stylus:build', () => {
     const stylusCompiler = stylus({
-        use: [rupture(), bootstrap()],
+        use: [rupture(), wedesBootstrap()],
         'include css': true
     }).on('error', (e) => {
         gutil.log(e);
@@ -75,6 +75,7 @@ gulp.task('stylus:build', () => {
                     'border-bottom', 
                     'border-top', 
                     'border-width',
+                    'border-spacing',
 
                     'border-radius',
                     'border-top-left-radius',
@@ -116,10 +117,12 @@ gulp.task('stylus:build', () => {
                 selectorBlackList: [
                     'html',
                     'ul:not([class]) > li:before',
-                    '.list-default > li:before'
+                    '.list-default > li:before',
+                    '.list-numeric > li:before',
+                    'ol:not([class]) > li:before'
                 ],
-                minPixelValue: 2,
-                mediaQuery: true
+                mediaQuery: true,
+                minPixelValue: 3
             })
         ]))
         .pipe(save('before-uglify'))
