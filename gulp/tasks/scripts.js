@@ -11,6 +11,15 @@ import notifier from 'node-notifier';
 import gaze from 'gaze';
 import save from 'gulp-save';
 
+function handleCompilerError(error) {
+    notifier.notify({
+        title: 'Typescript Error Happened 😞',
+        message: `Here is a problem: ${error.message}`
+    });
+    
+    this.emit('end');
+}
+
 gulp.task('scripts:watch', () => {
     return gaze([`${paths.src.ts}/**/*.ts`], function (event, filepath) {
         // On changed/added/deleted 
@@ -34,51 +43,15 @@ gulp.task('scripts:watch', () => {
     });
 });
 
-gulp.task('scripts:compile', () => {
-    const tsCompiler = webpack(require('../../webpack.config.js')).on('error', (e) => {
-        console.dir(tsCompiler)
-        gutil.log(e);
-        tsCompiler.end();
-    });
-
+gulp.task('scripts:build', ['scripts:copyFromVendor'], () => {
     return gulp.src(`${paths.src.ts}/main.ts`)
-        .pipe(tsCompiler)
-        .on('error', function errorHandler(error) {
-            notifier.notify({
-                title: 'Typescript Error Happened 😞',
-                message: `Here is a problem: ${error.message}`
-            });
-
-            this.emit('end');
-        })
-        .pipe(gulp.dest(paths.src.js));
-});
-
-gulp.task('scripts:copyFromVendor', () => {
-    return gulp.src([`${paths.vendor}/picturefill/dist/picturefill.min.js`])
-        .pipe(gulp.dest(paths.dist.js));
-});
-
-gulp.task('scripts:build', ['scripts:compile', 'scripts:copyFromVendor'], () => {
-    return gulp.src([
-        `${paths.vendor}/autosize/dist/autosize.js`,
-        `${paths.vendor}/bootstrap/js/transition.js`,
-        `${paths.vendor}/bootstrap/js/dropdown.js`,
-        `${paths.vendor}/bootstrap/js/collapse.js`,
-        `${paths.vendor}/bootstrap/js/tooltip.js`,
-        `${paths.vendor}/owl.carousel/dist/owl.carousel.js`,
-        `${paths.vendor}/bootstrap-select/dist/js/bootstrap-select.js`,
-        `${paths.vendor}/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js`,
-        `${paths.vendor}/blueimp-gallery/js/jquery.blueimp-gallery.min.js`,
-        `${paths.vendor}/blueimp-gallery/js/blueimp-gallery-video.js`,
-        `${paths.vendor}/blueimp-gallery/js/blueimp-gallery-vimeo.js`,
-        `${paths.vendor}/blueimp-gallery/js/blueimp-gallery-youtube.js`,
-        `${paths.src.js}/libs/*.js`,
-        `${paths.src.js}/bundle.js`])
+        .pipe(webpack(require('../../webpack.config.js')))
+            .on('error', handleCompilerError)
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
         .pipe(save('before-uglify'))
         .pipe(uglify())
+            .on('error', handleCompilerError)
         .pipe(rename({
             suffix: '.min'
         }))
@@ -88,5 +61,9 @@ gulp.task('scripts:build', ['scripts:compile', 'scripts:copyFromVendor'], () => 
         .pipe(gulp.dest(paths.dist.js));
 });
 
+gulp.task('scripts:copyFromVendor', () => {
+    return gulp.src([`${paths.vendor}/picturefill/dist/picturefill.min.js`])
+        .pipe(gulp.dest(paths.dist.js));
+});
 
 gulp.task('scripts:default', ['scripts:build', 'scripts:watch']);

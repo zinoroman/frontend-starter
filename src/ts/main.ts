@@ -1,1 +1,3 @@
-console.log('main ts');
+import '@wedes/bootstrap-styl/js/dropdown'
+
+console.log('hello world!');
