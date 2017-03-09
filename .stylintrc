@@ -1,6 +1,9 @@
 {
     "blocks": false,
-    "brackets": "never",
+    "brackets": {
+        "expect": "never",
+        "error": true
+    },
     "colons": "never",
     "colors": "always",
     "commaSpace": "always",
@@ -10,7 +13,10 @@
     "depthLimit": false,
     "duplicates": true,
     "efficient": "always",
-    "exclude": ["./src/stylus/templates/**/*.styl"],
+    "exclude": [
+        "src/stylus/libs", 
+        "src/stylus/templates"
+    ],
     "extendPref": false,
     "globalDupe": false,
     "groupOutputByFile": true,

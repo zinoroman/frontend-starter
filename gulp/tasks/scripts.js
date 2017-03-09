@@ -9,6 +9,7 @@ import gutil from 'gulp-util';
 import rename from 'gulp-rename';
 import notifier from 'node-notifier';
 import gaze from 'gaze';
+import tslint from 'gulp-tslint';
 import save from 'gulp-save';
 
 function handleCompilerError(error) {
@@ -43,7 +44,7 @@ gulp.task('scripts:watch', () => {
     });
 });
 
-gulp.task('scripts:build', ['scripts:copyFromVendor'], () => {
+gulp.task('scripts:build', ['scripts:copyFromVendor', 'scripts:tslint'], () => {
     return gulp.src(`${paths.src.ts}/main.ts`)
         .pipe(webpack(require('../../webpack.config.js')))
             .on('error', handleCompilerError)
@@ -64,6 +65,12 @@ gulp.task('scripts:build', ['scripts:copyFromVendor'], () => {
 gulp.task('scripts:copyFromVendor', () => {
     return gulp.src([`${paths.vendor}/picturefill/dist/picturefill.min.js`])
         .pipe(gulp.dest(paths.dist.js));
+});
+
+gulp.task('scripts:tslint', () => {
+    return gulp.src([`${paths.src.ts}/**/*.ts`])
+        .pipe(tslint())
+        .pipe(tslint.report());
 });
 
 gulp.task('scripts:default', ['scripts:build', 'scripts:watch']);

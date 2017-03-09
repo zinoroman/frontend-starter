@@ -14,8 +14,7 @@ import gutil from 'gulp-util';
 import notifier from 'node-notifier';
 import paths from '../paths';
 import save from 'gulp-save';
-import stylint from 'stylint';
-import shell from 'gulp-shell';
+import stylint from 'gulp-stylint';
 import gaze from 'gaze';
 
 gulp.task('stylus:watch', () => {
@@ -138,8 +137,12 @@ gulp.task('stylus:build', ['stylus:stylint'], () => {
         .pipe(gulp.dest(paths.dist.css));
 });
 
-gulp.task('stylus:stylint', shell.task([
-    'stylint ./src/stylus/ -c .stylintrc'
-]));
+gulp.task('stylus:stylint', () => {
+    return gulp.src('src/stylus/**/*.styl')
+        .pipe(stylint({
+            config: '.stylintrc'
+        }))
+        .pipe(stylint.reporter())
+});
 
 gulp.task('stylus:default', ['stylus:build', 'stylus:watch', 'stylus:stylint']);
