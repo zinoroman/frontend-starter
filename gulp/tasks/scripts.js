@@ -16,7 +16,7 @@ function handleCompilerError(error) {
         title: 'Typescript Error Happened 😞',
         message: `Here is a problem: ${error.message}`
     });
-    
+
     this.emit('end');
 }
 
