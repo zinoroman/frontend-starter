@@ -41,7 +41,7 @@ gulp.task('stylus:watch', () => {
     });
 });
 
-gulp.task('stylus:build', () => {
+gulp.task('stylus:build', ['stylus:stylint'], () => {
     const stylusCompiler = stylus({
         use: [rupture(), wedesBootstrap()],
         'include css': true
