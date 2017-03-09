@@ -36,17 +36,20 @@ gulp.task('scripts:watch', () => {
 
 gulp.task('scripts:compile', () => {
     const tsCompiler = webpack(require('../../webpack.config.js')).on('error', (e) => {
+        console.dir(tsCompiler)
         gutil.log(e);
         tsCompiler.end();
     });
 
     return gulp.src(`${paths.src.ts}/main.ts`)
         .pipe(tsCompiler)
-        .on('error', (error) => {
+        .on('error', function errorHandler(error) {
             notifier.notify({
                 title: 'Typescript Error Happened 😞',
                 message: `Here is a problem: ${error.message}`
             });
+
+            this.emit('end');
         })
         .pipe(gulp.dest(paths.src.js));
 });
